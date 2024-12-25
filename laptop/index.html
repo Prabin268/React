@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computer Bazar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        blockquote {
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+        h1, h3 {
+            color: #333;
+        }
+        label, input, select, button {
+            margin-bottom: 10px;
+            display: block;
+        }
+        input[type="text"], input[type="number"] {
+            padding: 5px;
+            width: 200px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .summary {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <blockquote>
+        <h1>Computer Bazar</h1>
+        <hr>
+        <h3>Product Details</h3>
+        <label for="dell">Dell: (Rs:20000)</label>
+        <input type="number" placeholder="Enter Quantity" id="dell" min="0"> 
+        <label for="hp">HP: (Rs:25000)</label>
+        <input type="number" placeholder="Enter Quantity" id="hp" min="0">
+        <label for="lenovo">Lenovo: (Rs:30000)</label>
+        <input type="number" placeholder="Enter Quantity" id="lenovo" min="0"> 
+        
+        <h3>Delivery Location</h3>
+        <input type="radio" id="home" name="delivery" value="10000">
+        <label for="home">Home (Rs:10000)</label>
+        <input type="radio" id="pickup" name="delivery" value="0">
+        <label for="pickup">Pickup (Free)</label>
+        
+        <h3>Packing</h3>
+        <input type="checkbox" id="plastic" value="1000">
+        <label for="plastic">Plastic (Rs:1000)</label>
+        <input type="checkbox" id="bag" value="2000">
+        <label for="bag">Bag (Rs:2000)</label>
+        <input type="checkbox" id="giftbox" value="5000">
+        <label for="giftbox">Gift Box (Rs:5000)</label>
+        
+        <h3>Location</h3>
+        <select id="location">
+            <option value="0">Select</option>
+            <option value="ktm">KTM (13% tax)</option>
+            <option value="ltp">LTP (Free)</option>
+            <option value="bkt">BKT (Free)</option>
+        </select>
+        
+        <br><br>
+        <button onclick="calculateBill()">Add Bill</button>
+        <hr>
+        <div class="summary" id="bill-summary"></div>
+    </blockquote>
+    <script src="./js/billing.js"></script>
+</body>
+</html>

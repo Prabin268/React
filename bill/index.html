@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supermarket Billing Project</title>
+    <style>
+        table {
+            margin-bottom: 20px;
+            border: 1px solid black;
+            background: linear-gradient(to right, rgb(0, 123, 255), white, rgb(255, 64, 0));
+            border-radius: 15px;
+            padding: 10px;
+        }
+        input {
+            border-radius: 15px;
+            font-size: large;
+        }
+        td {
+            padding: 5px;
+        }
+        button {
+            background-color: blueviolet;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        h1, h3, label {
+            color: white;
+            font-size: large;
+        }
+        th, tbody {
+            color: black;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body bgcolor="black">
+    <center>
+        <h1>Supermarket Billing Project</h1>
+        <table>
+            <tr>
+                <td>
+                    <label for="product">Product:</label>
+                </td>
+                <td>
+                    <input type="text" id="product" placeholder="Enter product name" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="quantity">Quantity:</label>
+                </td>
+                <td>
+                    <input type="number" id="quantity" placeholder="Enter quantity" />
+                </td>
+                <td>
+                    <label for="price">Price:</label>
+                </td>
+                <td>
+                    <input type="number" id="price" placeholder="Enter price per unit" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" style="text-align: center;">
+                    <button onclick="addItem()">Add Item</button>
+                </td>
+            </tr>
+        </table>
+        <table id="billTable">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            <tbody id="billBody"></tbody>
+        </table>
+        <h3>Total Bill: Rs. <span id="totalAmount">0.00</span></h3>
+    </center>
+    <script>
+        let billItems = [];
+
+        function addItem() {
+            const product = document.getElementById('product').value.trim();
+            const quantity = parseInt(document.getElementById('quantity').value);
+            const price = parseFloat(document.getElementById('price').value);
+
+            if (product && quantity > 0 && price > 0) {
+                const total = quantity * price;
+                const item = { product, quantity, price, total };
+                billItems.push(item);
+
+                displayBillItems();
+                calculateTotalAmount();
+
+                // Clear inputs
+                document.getElementById('product').value = '';
+                document.getElementById('quantity').value = '';
+                document.getElementById('price').value = '';
+            } else {
+                alert('Please fill in all fields with valid values.');
+            }
+        }
+
+        function removeItem(index) {
+            billItems.splice(index, 1);
+            displayBillItems();
+            calculateTotalAmount();
+        }
+
+        function displayBillItems() {
+            const billBody = document.getElementById('billBody');
+            billBody.innerHTML = '';
+
+            for (let i = 0; i < billItems.length; i++) {
+                const row = document.createElement('tr');
+                const item = billItems[i];
+
+                const productCell = document.createElement('td');
+                productCell.textContent = item.product;
+                row.appendChild(productCell);
+
+                const quantityCell = document.createElement('td');
+                quantityCell.textContent = item.quantity;
+                row.appendChild(quantityCell);
+
+                const priceCell = document.createElement('td');
+                priceCell.textContent = item.price.toFixed(2);
+                row.appendChild(priceCell);
+
+                const totalCell = document.createElement('td');
+                totalCell.textContent = item.total.toFixed(2);
+                row.appendChild(totalCell);
+
+                const removeCell = document.createElement('td');
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'X';
+                removeButton.addEventListener('click', () => removeItem(i));
+                removeCell.appendChild(removeButton);
+                row.appendChild(removeCell);
+
+                billBody.appendChild(row);
+            }
+        }
+
+        function calculateTotalAmount() {
+            let totalAmount = 0;
+            for (let i = 0; i < billItems.length; i++) {
+                totalAmount += billItems[i].total;
+            }
+            document.getElementById('totalAmount').textContent = totalAmount.toFixed(2);
+        }
+    </script>
+</body>
+</html>
